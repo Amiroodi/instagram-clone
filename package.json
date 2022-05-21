@@ -4,17 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "dev-test": "nodemon testing/test.js"
+    "dev": "nodemon index.js -e js,ejs",
+    "dev-test": "nodemon testing/test.js",
+    "css": "sass public/stylesheets/scss/style.scss public/stylesheets/style.css --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "path": "^0.12.7"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "sass": "^1.52.1"
   }
 }

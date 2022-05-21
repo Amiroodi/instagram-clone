@@ -1,7 +1,6 @@
 const UserModel = require('../models/UserModel');
 
 class UserController {
-
     static getAllUsers = (req, res) => {
         UserModel.getAllUsers((result) => {
             res.send(result);
