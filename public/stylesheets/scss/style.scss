@@ -1,5 +1,25 @@
-@use 'base/typography';
-// @import 'components';
-// @import 'layouts';
-// @import 'pages';
-// @import 'sass-utils';
+/////////////////////////////////////////// dimenstion for mobiles
+
+// sass-utils
+@import'sass-utils/variables';
+
+// base 
+@import 'base/typography';
+@import 'base/rules';
+
+// components
+@import 'components/form';
+
+// layouts
+@import 'layouts/header';
+
+// pages
+@import 'pages/signup';
+
+///////////////////////////////////////////
+
+// @media only screen and (min-width: 500px) {
+//     body {
+//         font-size: 20px;
+//     }
+// }

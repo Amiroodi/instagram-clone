@@ -5,6 +5,7 @@ const path = require('path');
 
 app.set('view engine', 'ejs');
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 // setting the public folder path
 const publicDir = path.join(__dirname, './public');
