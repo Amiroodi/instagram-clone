@@ -11,9 +11,12 @@ app.use(express.urlencoded({extended: true}));
 const publicDir = path.join(__dirname, './public');
 app.use(express.static(publicDir));
 
+// setting the main url paths
 app.use('/', require('./routes/login'));
 app.use('/users', require('./routes/users'));
 app.use('/signup', require('./routes/signup'));
+app.use('/login', require('./routes/login'));
+app.use('/upload_photo', require('./routes/upload_photo'));
 
 app.listen(port, () => {
     console.log(`server is listening on port ${port}...`);

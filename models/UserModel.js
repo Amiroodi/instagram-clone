@@ -1,7 +1,6 @@
 const con = require('./config');
 
 class UserModel {
-
     static getAllUsers(callback) {
         con.connect((err) => {
             if(err) throw err;
@@ -39,7 +38,24 @@ class UserModel {
                 callback(undefined, 'your account was successfully created!');
             });
         });
-    }
+    };
+
+    static loginUser(username, password, callback) {
+        con.connect((err) =>{
+            if(err) {
+                return callback('unable to connect to database.', undefined);
+            };
+
+            const sql = `select * from users where username='${username}' and password='${password}'`;
+
+            con.query(sql, (err, result) => {
+                if(err) {
+                    return callback('there was an error!', undefined);
+                };
+                callback(undefined, result);
+            });
+        });
+    };
 }
 
 module.exports = UserModel;
