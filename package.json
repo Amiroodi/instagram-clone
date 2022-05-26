@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js -e js,ejs",
-    "dev-test": "nodemon playground/test",
+    "dev-test": "nodemon playground/test.js",
     "css": "sass public/stylesheets/scss/style.scss public/stylesheets/style.css --watch"
   },
   "author": "",
@@ -13,6 +13,7 @@
   "dependencies": {
     "ejs": "^3.1.8",
     "express": "^4.18.1",
+    "express-session": "^1.17.3",
     "multer": "^1.4.4",
     "mysql2": "^2.3.3",
     "path": "^0.12.7"

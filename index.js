@@ -11,6 +11,17 @@ app.use(express.urlencoded({extended: true}));
 const publicDir = path.join(__dirname, './public');
 app.use(express.static(publicDir));
 
+
+// setting middlewares
+// const oneDay = 1000 * 60 * 60 * 24;
+// app.use(sessions({
+//     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+//     saveUninitialized:true,
+//     cookie: { maxAge: oneDay },
+//     resave: false 
+// }));
+
+
 // setting the main url paths
 app.use('/', require('./routes/login'));
 app.use('/users', require('./routes/users'));

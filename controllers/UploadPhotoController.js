@@ -2,9 +2,11 @@ const PhotoModel = require('../models/PhotoModel');
 const path = require('path');
 const multer = require('multer');
 
+// cb in some of these functions is a filter: null is passed when there is no error, and true is passed when the item is qualified 
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'photos');
+        cb(null, 'public/photos');
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + '.jpg');
@@ -23,11 +25,9 @@ const upload = multer({
             return cb(null, true);
         };
 
-        cb('Error: File upload only supports the ' + 'following filetypes - ' + filetypes);
+        cb('Error: File upload only supports the following filetypes: ' + filetypes);
     }
 }).single('mypic');
-
-
 
 class UploadPhotoController {
     static loadView = (req, res) => {
@@ -35,18 +35,11 @@ class UploadPhotoController {
     };
 
     static uploadPhoto = (req, res) => {
-        upload(req,res,function(err) {
-  
+        upload(req, res, (err) => {
             if(err) {
-      
-                // ERROR occured (here it can be occured due
-                // to uploading image of size greater than
-                // 1MB or uploading different file type)
-                res.send(err)
+                res.send(err);
             } else {
-      
-                // SUCCESS, image successfully uploaded
-                res.send("Success, Image uploaded!")
+                res.send("Success, Image uploaded!");
             };
         });
     }
