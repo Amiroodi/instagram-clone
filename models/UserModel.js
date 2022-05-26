@@ -3,7 +3,10 @@ const con = require('./config');
 class UserModel {
     static getAllUsers(callback) {
         con.connect((err) => {
-            if(err) throw err;
+            if(err) {
+                return callback('unable to connect to database.', undefined);
+            };
+            
             const sql = 'select * from users';
             con.query(sql, (err, result) => {
                 if(err) throw err;
@@ -14,6 +17,10 @@ class UserModel {
 
     static getUser(id, callback) {
         con.connect((err) => {
+            if(err) {
+                return callback('unable to connect to database.', undefined);
+            };
+
             const sql = `select * from users where id = ${id}`;
 
             con.query(sql, (err, result) => {

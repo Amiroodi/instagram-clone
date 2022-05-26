@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const path = require('path');
+const sessions = require('express-session');
 
 app.set('view engine', 'ejs');
 app.use(express.json());
@@ -12,14 +13,14 @@ const publicDir = path.join(__dirname, './public');
 app.use(express.static(publicDir));
 
 
-// setting middlewares
-// const oneDay = 1000 * 60 * 60 * 24;
-// app.use(sessions({
-//     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-//     saveUninitialized:true,
-//     cookie: { maxAge: oneDay },
-//     resave: false 
-// }));
+// setting session middleware
+const oneDay = 1000 * 60 * 15; // 15 minutes
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
 
 
 // setting the main url paths

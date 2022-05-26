@@ -9,8 +9,13 @@ class LogInController {
             UserModel.loginUser(username, password, (err, result) => {
                 if(err) {
                     res.send(err);
+                } else if(result.length == 0) {
+                    res.send('account was not found.');
                 } else {
-                    res.send(result);
+                    // session is a pointer to req.session
+                    let session = req.session;
+                    session.userid = result[0].id;
+                    res.redirect('../upload_photo');
                 }
             });
         } else {

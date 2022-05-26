@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
         cb(null, 'public/photos');
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + '.jpg');
+        cb(null, req.session.userid + '_' + req.session.photoExtension + '.jpg');
     }
 });
 
@@ -31,18 +31,40 @@ const upload = multer({
 
 class UploadPhotoController {
     static loadView = (req, res) => {
-        res.render('index', {page: 'upload_photo', title: 'Upload Post'});
+        if(req.session.userid) {
+            res.render('index', {page: 'upload_photo', title: 'Upload Post'});
+        } else {
+            res.send('please log into your account.');
+        };
     };
 
     static uploadPhoto = (req, res) => {
-        upload(req, res, (err) => {
-            if(err) {
-                res.send(err);
-            } else {
-                res.send("Success, Image uploaded!");
-            };
-        });
-    }
+        if(req.session.userid) {
+            const userid = req.session.userid;
+
+            // photoExtention is used for saving the photo in the server and database with the same time extensions.
+            const photoExtension = Date.now();
+            req.session.photoExtension = photoExtension;
+
+            upload(req, res, (err) => {
+                if(err) {
+                    res.send(err);
+                } else {
+                    PhotoModel.uploadPhotoURL(userid, photoExtension, (err, result) => {
+                        if(err) {
+                            res.send(err);
+                        } else {
+                            req.session.photoExtension = null;
+                            res.send('Success, Image uploaded!');
+                        }
+                    });
+                };
+            });
+        } else {
+            res.send('please login to your account.');
+        };
+
+    };
 }
 
 module.exports = UploadPhotoController;
