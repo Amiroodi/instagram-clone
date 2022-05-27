@@ -18,17 +18,17 @@ const oneDay = 1000 * 60 * 15; // 15 minutes
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized:true,
-    cookie: { maxAge: oneDay },
+    cookie: {maxAge: oneDay},
     resave: false 
 }));
 
 
 // setting the main url paths
-app.use('/', require('./routes/login'));
-app.use('/users', require('./routes/users'));
+
+app.get('/', require('./routes/home'));
+app.use('/user', require('./routes/user'));
 app.use('/signup', require('./routes/signup'));
 app.use('/login', require('./routes/login'));
-app.use('/upload_photo', require('./routes/upload_photo'));
 
 app.listen(port, () => {
     console.log(`server is listening on port ${port}...`);

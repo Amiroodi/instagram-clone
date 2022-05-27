@@ -32,7 +32,7 @@ const upload = multer({
 class UploadPhotoController {
     static loadView = (req, res) => {
         if(req.session.userid) {
-            res.render('index', {page: 'upload_photo', title: 'Upload Post'});
+            res.render('index', {page: 'user_upload_photo', title: 'Upload Photo'});
         } else {
             res.send('please log into your account.');
         };

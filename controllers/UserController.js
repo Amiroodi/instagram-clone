@@ -1,18 +1,12 @@
 const UserModel = require('../models/UserModel');
 
 class UserController {
-    static getAllUsers = (req, res) => {
-        UserModel.getAllUsers((result) => {
-            res.send(result);
-        });
-    };
-    
-    static getUser = (req, res) => {
-        const id = req.query.id;
-
-        UserModel.getUser(id, (result) => {
-            res.send(result);
-        });
+    static loadView = (req, res) => {
+        if(req.session.userid) {
+            res.render('index', {page: 'user_home', title: 'User Home page'});
+        } else {
+            res.send('please login to your account.');
+        };
     };
 }
 

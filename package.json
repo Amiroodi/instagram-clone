@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js -e js,ejs",
     "dev-test": "nodemon playground/test.js",
-    "css": "sass public/stylesheets/scss/style.scss public/stylesheets/style.css --watch"
+    "css-watch": "npx tailwindcss -i ./public/stylesheets/input.css -o ./public/stylesheets/output.css --watch",
+    "css-build": "npx tailwindcss -i ./public/stylesheets/input.css -o ./public/stylesheets/output.css --build"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.16",
-    "sass": "^1.52.1"
+    "sass": "^1.52.1",
+    "tailwindcss": "^3.0.24"
   }
 }

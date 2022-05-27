@@ -1,6 +1,6 @@
 const UserModel = require('../models/UserModel');
 
-class LogInController {
+class LoginController {
     static LoginUser = (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
@@ -15,7 +15,7 @@ class LogInController {
                     // session is a pointer to req.session
                     let session = req.session;
                     session.userid = result[0].id;
-                    res.redirect('../upload_photo');
+                    res.redirect('../user/home');
                 }
             });
         } else {
@@ -29,4 +29,4 @@ class LogInController {
     };
 }
 
-module.exports = LogInController;
+module.exports = LoginController;
