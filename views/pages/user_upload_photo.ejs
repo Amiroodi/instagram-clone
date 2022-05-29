@@ -1,8 +1,13 @@
-<h1 class="text-4xl">upload your photo!</h1>
+<div class="flex flex-col items-center gap-12">
+    <h1 class="text-5xl">Upload Your Photo!</h1>
 
-<form class="flex flex-col items-center" action="upload_photo" method="post" enctype="multipart/form-data">
-    <span>Upload Profile Picture:</span>  
-    <input type="file" name="mypic" required/> <br>
-    <input class="px-5 py-2 bg-putty-beige" type="submit" value="submit"> 
-</form>
+    <form class="flex flex-col" action="upload_photo" method="post" enctype="multipart/form-data">
+        <span>Upload Profile Picture:</span>  
+        <input type="file" name="mypic" required/> <br>
+        <input class="px-5 py-2 mb-6" type="text" name="photo_tag" placeholder="choose a tag such as: #cute">
+        <input class="px-5 py-2 cursor-pointer bg-putty-beige hover:bg-peach-beige" type="submit" value="submit"> 
+    </form>
+    
+</div>
+
 

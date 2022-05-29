@@ -27,7 +27,7 @@ const upload = multer({
 
         cb('Error: File upload only supports the following filetypes: ' + filetypes);
     }
-}).single('mypic');
+}).any();
 
 class UploadPhotoController {
     static loadView = (req, res) => {
@@ -41,6 +41,11 @@ class UploadPhotoController {
     static uploadPhoto = (req, res) => {
         if(req.session.userid) {
             const userid = req.session.userid;
+            
+
+
+            // return res.send(tag);
+
 
             // photoExtention is used for saving the photo in the server and database with the same time extensions.
             const photoExtension = Date.now();
@@ -50,12 +55,13 @@ class UploadPhotoController {
                 if(err) {
                     res.send(err);
                 } else {
-                    PhotoModel.uploadPhotoURL(userid, photoExtension, (err, result) => {
+                    const tag = req.body.photo_tag;
+                    PhotoModel.uploadPhoto(userid, photoExtension, tag, (err, result) => {
                         if(err) {
                             res.send(err);
                         } else {
                             req.session.photoExtension = null;
-                            res.send('Success, Image uploaded!');
+                            res.send('Success, Image Uploaded!');
                         }
                     });
                 };

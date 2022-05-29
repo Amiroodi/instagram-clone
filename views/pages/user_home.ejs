@@ -1,15 +1,13 @@
-<!-- <div class="">
-    All Photos
-</div> -->
-
 <div class="flex flex-col items-center">
     <div class="text-5xl mb-24">
         Your Photos
     </div>
 
     <div class="grid grid-cols-5 gap-2">
-        <div class="h-[200px] w-[200px]">
-            <img src="/public/p">
-        </div>
+        <% result.forEach(image => { %>
+            <div class="h-[200px] w-[200px]">
+                <img class="w-full h-full" src="/photos/<%= image.image_url %>">
+            </div>
+        <% }); %>
     </div>
 </div>
