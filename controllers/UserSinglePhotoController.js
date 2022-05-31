@@ -1,16 +1,18 @@
 const UserModel = require('../models/UserModel');
 const PhotoModel = require('../models/PhotoModel');
 
-class UserHomeController {
+class UserSinglePhotoController {
     static loadView = (req, res) => {
         if(req.session.userId) {
+            const photoId = req.params.photoId;
             const userId = req.session.userId;
-            PhotoModel.loadPhotos(userId, (err, result) => {
+
+            PhotoModel.loadPhoto(photoId, userId, (err, result) => {
                 if(err) {
                     return res.send(err);
                 };
 
-                res.render('index', {page: 'user_home', title: 'User Home page', result});
+                res.render('index', {page: 'user_single_photo', title: 'photo', photo: result});
             });
         } else {
             res.send('please login to your account.');
@@ -18,4 +20,4 @@ class UserHomeController {
     };
 }
 
-module.exports = UserHomeController;
+module.exports = UserSinglePhotoController;

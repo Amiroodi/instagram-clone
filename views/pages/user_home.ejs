@@ -4,10 +4,12 @@
     </div>
 
     <div class="grid grid-cols-5 gap-2">
-        <% result.forEach(image => { %>
-            <div class="h-[200px] w-[200px]">
-                <img class="w-full h-full" src="/photos/<%= image.image_url %>">
-            </div>
+        <% result.forEach(photo => { %>
+            <a href="photo/<%= photo.id %>">
+                <div class="h-[200px] w-[200px]">
+                    <img class="w-full h-full" src="/photos/<%= photo.image_url %>">
+                </div>
+            </a>
         <% }); %>
     </div>
 </div>

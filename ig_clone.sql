@@ -55,7 +55,7 @@ CREATE TABLE tags (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE photo_tags (
+CREATE TABLE photo_tag (
     photo_id INTEGER NOT NULL,
     tag_id INTEGER NOT NULL,
     FOREIGN KEY(photo_id) REFERENCES photos(id),

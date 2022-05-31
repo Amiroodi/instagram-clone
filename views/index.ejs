@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="/stylesheets/output.css">
 </head>
 <body class="bg-warm-grey">
+    <% const pagesWithoutHeader = ['login', 'signup', 'home']; %>
+    <% if(!pagesWithoutHeader.includes(title)) { %>
     <%- include('templates/header') %>
+    <% } %>
 
     <div class="mx-[5%] my-[4%]">
         <%- include('pages/' + page) %>

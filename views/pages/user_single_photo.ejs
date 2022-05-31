@@ -1,0 +1,59 @@
+<div class="flex flex-col items-center">
+    <div class="w-[500px] h-[500px] mb-9">
+        <img class="w-full h-full" src="/photos/<%= photo.image_url %>" data-id="<%= photo.id %>">
+    </div>
+    
+    <div class="flex">
+        <div class="mr-16 mt-3">
+            <%= photo.tag_name %>
+        </div>
+
+        <% if(photo.userLikedPhotoBefore) { %>
+            <div class="w-[50px] h-[50px]">
+                <img class="likeBtn w-full h-full" src="/icons/heart_filled.png">
+            </div>
+        <% } else { %> 
+            <div class="w-[50px] h-[50px]">
+                <img class="likeBtn w-full h-full" src="/icons/heart_empty.png">
+            </div>
+        <% } %> 
+    </div>
+</div>
+
+
+
+<script src="/js/jquery.js"></script>
+<script>
+    const likeBtn = $('.likeBtn');
+    const photoId = $('img').attr('data-id');
+
+    likeBtn.click(() => {
+        if(likeBtn.attr('src') == '/icons/heart_empty.png') {
+            likeBtn.attr('src', '/icons/heart_filled.png');
+
+            $.ajax('/user/like', {
+                type: 'post',
+                data: {photoId},
+                success: (data) => {
+                    console.log(data);
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            });
+        } else {
+            likeBtn.attr('src', '/icons/heart_empty.png');
+
+            $.ajax('/user/dislike', {
+                type: 'post',
+                data: {photoId},
+                success: (data) => {
+                    console.log(data);
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            });
+        };
+    });
+</script>

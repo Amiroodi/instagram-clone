@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .header-bar {
+        background: rgb(255,238,221);
+        background: radial-gradient(circle, rgba(255,238,221,1) 0%, rgba(255,216,190,1) 71%);
+    }
+}
