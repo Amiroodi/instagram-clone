@@ -18,5 +18,6 @@ router.post('/like', UserLikeController.like);
 router.post('/dislike', UserLikeController.dislike);
 
 router.get('/search', UserSearchController.loadView);
+router.post('/search', UserSearchController.find);
 
 module.exports = router;

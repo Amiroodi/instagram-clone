@@ -1,14 +1,75 @@
 <div class="flex flex-col items-center">
-    <div class="">
-        <input class="px-4 py-2 w-[500px]" type="text" placeholder="Search For A Tag Or Someone...">
+    <div class="mb-12">
+        <input class="px-4 py-2 w-[400px]" type="text" placeholder="Search For A Tag Or Someone..." id="search-bar">
     </div>
-
-    <div class="" id="search-result-tags">
-
-    </div>
-
-    <div class="" id="search-result-people">
+    
+    <div class="hidden flex flex-col w-[50%] space-y-4" id="search-result">
 
     </div>
 
+    <template id="tags-result">
+        <a href="#">
+            <div class="bg-putty-beige px-4 py-2 rounded-md hover:bg-greyed-lavender hover:text-warm-grey duration-150" id="result" data-tagId>
+                #cats
+            </div>
+        </a>
+    </template>
+
+    <template id="users-result">
+        <a href="#">
+            <div class="bg-putty-beige px-4 py-2 rounded-md hover:bg-greyed-lavender hover:text-warm-grey duration-150" id="result" data-userId>
+                person
+            </div>
+        </a>
+    </template>
 </div>
+
+<script src="/js/jquery.js"></script>
+
+<script>
+    let timer;
+
+    $('#search-bar').on('keyup', () => {
+        clearTimeout(timer);
+
+        timer = setTimeout(() => send(), 600);
+    });
+
+    const send = () => {
+        $.ajax('/user/search', {
+            type: 'post',
+            data: {searchBarVal: $('#search-bar').val()},
+            success: (result) => prepareResult(result),
+            error: () => console.log('there was an ajax error.')
+        });
+    };
+
+    const prepareResult = (result) => {
+        const searchResult = $('#search-result');
+        searchResult.empty();
+
+        if(searchResult.hasClass('hidden')) {
+            searchResult.removeClass('hidden');
+        };
+
+        if($('#search-bar').val().startsWith('#')) {
+            if(result.length != 0) {
+                result.forEach(singleResult => {
+                    const tagTemp = $('#tags-result')[0].content.cloneNode(true);
+                    tagTemp.querySelector('#result').textContent = singleResult.tag_name;
+                    tagTemp.querySelector('#result').setAttribute('data-tagId', singleResult.id);
+                    $('#search-result').append(tagTemp);
+                });
+            };
+        } else {
+            if(result.length != 0) {
+                result.forEach(singleResult => {
+                    const userTemp = $('#users-result')[0].content.cloneNode(true);
+                    userTemp.querySelector('#result').textContent = singleResult.username;
+                    userTemp.querySelector('#result').setAttribute('data-userId', singleResult.id);
+                    $('#search-result').append(userTemp);
+                });
+            };
+        };
+    };
+</script>

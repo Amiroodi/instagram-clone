@@ -63,6 +63,24 @@ class UserModel {
             });
         });
     };
+
+    static loadSearchedUser = (username, callback) => {
+        con.connect((err) => {
+            if(err) {
+                return callback(err, undefined);
+            };
+
+            const sql = `select id, username from users where username like '%${username}%'`;
+
+            con.query(sql, (err, result) => {
+                if(err) {
+                    return callback(err, undefined);
+                };
+
+                callback(undefined, result);
+            });
+        });
+    };
 }
 
 module.exports = UserModel;
