@@ -4,7 +4,7 @@ const PhotoModel = require('../models/PhotoModel');
 class UserSinglePhotoController {
     static loadView = (req, res) => {
         if(req.session.userId) {
-            const photoId = req.params.photoId;
+            const photoId = req.query.photo_id;
             const userId = req.session.userId;
 
             PhotoModel.loadPhoto(photoId, userId, (err, result) => {

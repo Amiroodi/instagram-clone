@@ -30,26 +30,26 @@ class UserSearchController {
     };
 
     static bringeSingleTag = (req, res) => {
-        const tagId = req.params.tagId;
+        const tagId = req.query.tag_id;
 
         PhotoModel.loadPhotosByTag(tagId, (err, result) => {
             if(err) {
                 return res.send(err);
             };
 
-            res.render('index', {page: 'user_photos_by_tag', title: `found photos`, result});
+            res.render('index', {page: 'user_home', headPara: `photos with tag #${req.query.tag_name}` , title: `found photos`, result});
         });
     };
 
     static bringeSingleUser = (req, res) => {
-        const userId = req.params.userId;
+        const userId = req.query.user_id;
 
         PhotoModel.loadPhotosByUser(userId, (err, result) => {
             if(err) {
                 return res.send(err);
             };
 
-            res.render('index', {page: 'user_photos_by_user', title: 'user profile', result});
+            res.render('index', {page: 'user_home', title: 'user profile', headPara: `${req.query.username}'s page`, result});
         });
     };
 }

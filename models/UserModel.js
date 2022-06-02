@@ -4,7 +4,7 @@ class UserModel {
     static getAllUsers(callback) {
         con.connect((err) => {
             if(err) {
-                return callback('unable to connect to database.', undefined);
+                return callback(err, undefined);
             };
             
             const sql = 'select * from users';
@@ -18,7 +18,7 @@ class UserModel {
     static getUser(id, callback) {
         con.connect((err) => {
             if(err) {
-                return callback('unable to connect to database.', undefined);
+                return callback(err, undefined);
             };
 
             const sql = `select * from users where id = ${id}`;
@@ -33,14 +33,14 @@ class UserModel {
     static createUser(username, password, callback) {
         con.connect((err) => {
             if(err) {
-                return callback('unable to connect to database.', undefined);
+                return callback(err, undefined);
             };
 
             const sql = `insert into users(username, password) values('${username}', '${password}')`;
 
             con.query(sql, (err, result) => {
                 if(err) {
-                    return callback('username already exists!', undefined);
+                    return callback(err, undefined);
                 };
                 callback(undefined, 'your account was successfully created!');
             });
@@ -50,16 +50,17 @@ class UserModel {
     static loginUser(username, password, callback) {
         con.connect((err) =>{
             if(err) {
-                return callback('unable to connect to database.', undefined);
+                return callback(err, undefined);
             };
 
-            const sql = `select * from users where username='${username}' and password='${password}'`;
+            const sql = `select id, username from users where username='${username}' and password='${password}'`;
 
             con.query(sql, (err, result) => {
                 if(err) {
-                    return callback('there was an error!', undefined);
+                    return callback(err, undefined);
                 };
-                callback(undefined, result);
+                
+                callback(undefined, result[0]);
             });
         });
     };

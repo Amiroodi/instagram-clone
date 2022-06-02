@@ -71,7 +71,7 @@ class PhotoModel {
 
                 // });
 
-                
+
             });
         });
     };
@@ -125,7 +125,6 @@ class PhotoModel {
                     return callback(err, undefined);
                 };
 
-                console.log(result);
                 callback(undefined, result);
             });
         });

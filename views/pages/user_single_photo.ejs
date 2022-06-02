@@ -31,7 +31,7 @@
         if(likeBtn.attr('src') == '/icons/heart_empty.png') {
             likeBtn.attr('src', '/icons/heart_filled.png');
 
-            $.ajax('/user/like', {
+            $.ajax('photo/like', {
                 type: 'post',
                 data: {photoId},
                 success: (data) => {
@@ -44,7 +44,7 @@
         } else {
             likeBtn.attr('src', '/icons/heart_empty.png');
 
-            $.ajax('/user/dislike', {
+            $.ajax('photo/dislike', {
                 type: 'post',
                 data: {photoId},
                 success: (data) => {

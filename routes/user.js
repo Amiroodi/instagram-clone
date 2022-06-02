@@ -12,15 +12,15 @@ router.get('/home', UserHomeController.loadView);
 router.get('/upload_photo', UserUploadPhotoController.loadView);
 router.post('/upload_photo', UserUploadPhotoController.uploadPhoto);
 
-router.get('/photo/:photoId', UserSinglePhotoController.loadView);
+router.get('/photo', UserSinglePhotoController.loadView);
 
-router.post('/like', UserLikeController.like);
-router.post('/dislike', UserLikeController.dislike);
+router.post('/photo/like', UserLikeController.like);
+router.post('/photo/dislike', UserLikeController.dislike);
 
 router.get('/search', UserSearchController.loadView);
 router.post('/search', UserSearchController.findAll);
 
-router.get('/searched-tag/:tagId', UserSearchController.bringeSingleTag);
-router.get('/searched-user/:userId', UserSearchController.bringeSingleUser);
+router.get('/searched_tag', UserSearchController.bringeSingleTag);
+router.get('/searched_user', UserSearchController.bringeSingleUser);
 
 module.exports = router;

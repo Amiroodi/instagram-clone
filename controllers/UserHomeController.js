@@ -10,7 +10,7 @@ class UserHomeController {
                     return res.send(err);
                 };
 
-                res.render('index', {page: 'user_home', title: 'User Home page', result});
+                res.render('index', {page: 'user_home', headPara: `Your Photos` , title: 'User Home page', result});
             });
         } else {
             res.send('please login to your account.');

@@ -30,9 +30,10 @@ app.use(sessions({
 // setting the main url paths
 
 app.get('/', require('./routes/home'));
-app.use('/user', require('./routes/user'));
+app.use('/', require('./routes/user'));
 app.use('/signup', require('./routes/signup'));
 app.use('/login', require('./routes/login'));
+
 
 app.listen(port, () => {
     console.log(`server is listening on port ${port}...`);

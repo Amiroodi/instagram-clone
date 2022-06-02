@@ -1,11 +1,11 @@
 <div class="flex flex-col items-center">
-    <div class="text-5xl mb-24">
-        Your Photos
+    <div class="text-5xl mb-24 capitalize">
+        <%= headPara %>
     </div>
 
     <div class="grid grid-cols-5 gap-2">
         <% result.forEach(photo => { %>
-            <a href="photo/<%= photo.id %>">
+            <a href="photo?photo_id=<%= photo.id %>">
                 <div class="h-[200px] w-[200px]">
                     <img class="w-full h-full" src="/photos/<%= photo.image_url %>">
                 </div>

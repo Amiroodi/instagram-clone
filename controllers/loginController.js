@@ -14,8 +14,8 @@ class LoginController {
                 } else {
                     // session is a pointer to req.session
                     let session = req.session;
-                    session.userId = result[0].id;
-                    res.redirect('../user/home');
+                    session.userId = result.id;
+                    res.redirect(`home`);
                 }
             });
         } else {
