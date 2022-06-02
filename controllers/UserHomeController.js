@@ -5,7 +5,7 @@ class UserHomeController {
     static loadView = (req, res) => {
         if(req.session.userId) {
             const userId = req.session.userId;
-            PhotoModel.loadPhotos(userId, (err, result) => {
+            PhotoModel.loadPhotosByUser(userId, (err, result) => {
                 if(err) {
                     return res.send(err);
                 };

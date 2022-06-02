@@ -18,6 +18,9 @@ router.post('/like', UserLikeController.like);
 router.post('/dislike', UserLikeController.dislike);
 
 router.get('/search', UserSearchController.loadView);
-router.post('/search', UserSearchController.find);
+router.post('/search', UserSearchController.findAll);
+
+router.get('/searched-tag/:tagId', UserSearchController.bringeSingleTag);
+router.get('/searched-user/:userId', UserSearchController.bringeSingleUser);
 
 module.exports = router;

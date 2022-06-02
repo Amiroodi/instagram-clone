@@ -70,15 +70,19 @@ class UserModel {
                 return callback(err, undefined);
             };
 
-            const sql = `select id, username from users where username like '%${username}%'`;
+            if(username != '') {
+                const sql = `select id, username from users where username like '%${username}%'`;
 
-            con.query(sql, (err, result) => {
-                if(err) {
-                    return callback(err, undefined);
-                };
-
-                callback(undefined, result);
-            });
+                con.query(sql, (err, result) => {
+                    if(err) {
+                        return callback(err, undefined);
+                    };
+    
+                    callback(undefined, result);
+                });
+            } else {
+                callback(undefined, []);
+            };
         });
     };
 }

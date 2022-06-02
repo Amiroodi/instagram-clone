@@ -58,6 +58,8 @@
                     const tagTemp = $('#tags-result')[0].content.cloneNode(true);
                     tagTemp.querySelector('#result').textContent = singleResult.tag_name;
                     tagTemp.querySelector('#result').setAttribute('data-tagId', singleResult.id);
+                    tagTemp.querySelector('a').setAttribute('href', `searched-tag/${singleResult.id}`);
+
                     $('#search-result').append(tagTemp);
                 });
             };
@@ -67,6 +69,8 @@
                     const userTemp = $('#users-result')[0].content.cloneNode(true);
                     userTemp.querySelector('#result').textContent = singleResult.username;
                     userTemp.querySelector('#result').setAttribute('data-userId', singleResult.id);
+                    userTemp.querySelector('a').setAttribute('href', `searched-user/${singleResult.id}`);
+
                     $('#search-result').append(userTemp);
                 });
             };

@@ -38,7 +38,7 @@ class PhotoModel {
         });
     };
 
-    static loadPhotos = (userId, callback) => {
+    static loadPhotosByUser = (userId, callback) => {
         con.connect((err) => {
             if(err) {
                 return callback(err, undefined);
@@ -50,7 +50,28 @@ class PhotoModel {
                 if(err) {
                     return callback(err, undefined);
                 };
+
+                console.log(result);
                 callback(undefined, result);
+
+
+
+                // result = result[0];
+
+                // const sql = `select id, username from users where id = ${userId}`;
+
+                // con.query(sql, (err, result_2) => {
+                //     if(err) {
+                //         return callback(err, undefined);
+                //     };
+
+                //     result.userId = result_2.id;
+                //     result.username = result_2.username;
+
+
+                // });
+
+                
             });
         });
     };
@@ -87,6 +108,25 @@ class PhotoModel {
 
                     callback(undefined, result);
                 });
+            });
+        });
+    };
+
+    static loadPhotosByTag = (tagId, callback) => {
+        con.connect((err) => {
+            if(err) {
+                return callback(err, undefined);
+            };
+
+            const sql = `select p.id, p.image_url from tags as t join photo_tag as pt on t.id = pt.tag_id join photos as p on pt.photo_id = p.id where t.id = ${tagId}`;
+
+            con.query(sql, (err, result) => {
+                if(err) {
+                    return callback(err, undefined);
+                };
+
+                console.log(result);
+                callback(undefined, result);
             });
         });
     };
