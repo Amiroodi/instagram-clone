@@ -2,7 +2,7 @@ const con = require('./config');
 
 class PhotoModel {
     // uploadPhoto uploads the image_url and image's tag into the database
-    static uploadPhoto(userId, photoExtension, tag, callback) {
+    static uploadPhoto(userId, photoExtension, tag, caption, callback) {
         con.connect((err) => {
             if(err) {
                 return callback(err, undefined);
@@ -10,7 +10,7 @@ class PhotoModel {
 
             const img_url = `${userId}_${photoExtension}.jpg`;
 
-            let sql = `insert into photos(user_id, image_url) values('${userId}', '${img_url}')`;
+            let sql = `insert into photos(user_id, image_url, caption) values(${userId}, '${img_url}', '${caption}')`;
 
             con.query(sql, (err, photos_result) => {
                 if(err) {
@@ -53,25 +53,6 @@ class PhotoModel {
 
                 console.log(result);
                 callback(undefined, result);
-
-
-
-                // result = result[0];
-
-                // const sql = `select id, username from users where id = ${userId}`;
-
-                // con.query(sql, (err, result_2) => {
-                //     if(err) {
-                //         return callback(err, undefined);
-                //     };
-
-                //     result.userId = result_2.id;
-                //     result.username = result_2.username;
-
-
-                // });
-
-
             });
         });
     };

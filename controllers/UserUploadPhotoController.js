@@ -51,7 +51,9 @@ class UserUploadPhotoController {
                     res.send(err);
                 } else {
                     const tag = req.body.photo_tag;
-                    PhotoModel.uploadPhoto(userId, photoExtension, tag, (err, result) => {
+                    const caption = req.body.photo_caption;
+
+                    PhotoModel.uploadPhoto(userId, photoExtension, tag, caption, (err, result) => {
                         if(err) {
                             res.send(err);
                         } else {

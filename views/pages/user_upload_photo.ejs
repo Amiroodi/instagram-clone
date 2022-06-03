@@ -1,13 +1,27 @@
 <div class="flex flex-col items-center gap-12">
-    <h1 class="text-5xl">Upload Your Photo!</h1>
+    <h1 class="text-5xl font-semibold mb-4">Upload Your Photo!</h1>
 
-    <form class="flex flex-col" action="upload_photo" method="post" enctype="multipart/form-data">
-        <span>Upload Profile Picture:</span>  
-        <input type="file" name="mypic" required/> <br>
-        <input class="px-5 py-2 mb-6" type="text" name="photo_tag" placeholder="choose a tag such as: #cute">
-        <input class="px-5 py-2 cursor-pointer bg-putty-beige hover:bg-peach-beige" type="submit" value="submit"> 
+    <form class="grid grid-rows-6 grid-cols-4 grid-flow-col gap-3 h-[275px]" action="upload_photo" method="post" enctype="multipart/form-data">
+        <div class="row-span-3">
+            <span class="mb-3">
+                Upload Profile Picture:
+            </span>  
+            <input type="file" name="mypic" required/> <br>
+        </div>
+
+        <div class="row-span-2 relative">
+            <input class="px-5 py-2 w-[90%] absolute bottom-0" type="text" name="photo_tag" placeholder="choose a tag such as: #cute">
+        </div>
+
+        <div class="row-span-1 col-span-6 text-center mt-4">
+            <input class="px-24 py-4 cursor-pointer rounded-md bg-putty-beige hover:bg-peach-beige duration-150" type="submit" value="submit"> 
+        </div>
+        
+        <div class="row-span-5 col-span-3">
+            <textarea class="w-full h-full px-4 py-2" name="photo_caption" placeholder="Write A Caption For Your Photo!"></textarea>
+        </div>
+
     </form>
-    
 </div>
 
 

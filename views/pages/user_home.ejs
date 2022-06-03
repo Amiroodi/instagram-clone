@@ -7,7 +7,7 @@
         <% result.forEach(photo => { %>
             <a href="photo?photo_id=<%= photo.id %>">
                 <div class="h-[200px] w-[200px]">
-                    <img class="w-full h-full" src="/photos/<%= photo.image_url %>">
+                    <img class="w-full h-full rounded-md" src="/photos/<%= photo.image_url %>">
                 </div>
             </a>
         <% }); %>
