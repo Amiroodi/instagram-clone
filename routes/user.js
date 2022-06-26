@@ -6,6 +6,7 @@ const UserSinglePhotoController = require('../controllers/UserSinglePhotoControl
 const UserUploadPhotoController = require('../controllers/UserUploadPhotoController');
 const UserLikeController = require('../controllers/UserLikeController');
 const UserSearchController = require('../controllers/UserSearchController');
+const UserCommentController = require('../controllers/UserCommentController');
 
 router.get('/home', UserHomeController.loadView);
 
@@ -22,5 +23,7 @@ router.post('/search', UserSearchController.findAll);
 
 router.get('/searched_tag', UserSearchController.bringeSingleTag);
 router.get('/searched_user', UserSearchController.bringeSingleUser);
+
+router.post('/comment/send', UserCommentController.saveComment);
 
 module.exports = router;

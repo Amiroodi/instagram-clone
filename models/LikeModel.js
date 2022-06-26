@@ -7,9 +7,9 @@ class LikeModel {
                 return callback(err, undefined);
             };
 
-            const sql = `insert into likes(user_id, photo_id) values(${userId}, ${photoId})`;
+            const sql = `insert into likes(user_id, photo_id) values(?, ?)`;
 
-            con.query(sql, (err, result) => {
+            con.execute(sql, [userId, photoId],(err, result) => {
                 if(err) {
                     return callback(err, undefined);
                 };
@@ -25,9 +25,9 @@ class LikeModel {
                 return callback(err, undefined);
             };
 
-            const sql = `delete from likes where user_id = ${userId} and photo_id = ${photoId}`;
+            const sql = `delete from likes where user_id = ? and photo_id = ?`;
 
-            con.query(sql, (err, result) => {
+            con.execute(sql, [userId, photoId], (err, result) => {
                 if(err) {
                     return callback(err, undefined);
                 };

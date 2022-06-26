@@ -13,7 +13,7 @@ class UserHomeController {
                 res.render('index', {page: 'user_home', headPara: `Your Photos` , title: 'User Home page', result});
             });
         } else {
-            res.send('please login to your account.');
+            res.redirect('/login');
         };
     };
 }

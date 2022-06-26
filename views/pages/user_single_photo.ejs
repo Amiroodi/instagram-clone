@@ -1,37 +1,95 @@
-<div class="flex flex-col items-center">
-    <div class="w-[500px] h-[500px] mb-9">
-        <img class="w-full h-full rounded-md" src="/photos/<%= photo.image_url %>" data-id="<%= photo.id %>">
-    </div>
-    
-    <div class="flex">
-        <div class="mr-16 mt-3">
-            <%= photo.tag_name %>
-        </div>
-
+<div class="flex flex-row space-x-8">
+    <div class="flex flex-col w-[400px] max-h-[450px]">
         <% if(photo.userLikedPhotoBefore) { %>
-            <div class="w-[50px] h-[50px]">
+            <div class="w-[60px] h-[60px] mb-5 ml-3">
                 <img class="likeBtn w-full h-full" src="/icons/heart_filled.png">
             </div>
         <% } else { %> 
-            <div class="w-[50px] h-[50px]">
+            <div class="w-[60px] h-[60px] mb-5 ml-3">
                 <img class="likeBtn w-full h-full" src="/icons/heart_empty.png">
             </div>
         <% } %> 
+
+        <div class="mb-8 px-4 py-2 bg-putty-beige rounded-md">
+            <div class="mb-2">
+                Tag: <%= photo.tag_name %>
+            </div>
+
+            <div>
+                Posted By <span class="text-parma-violet"><%= photo.username %></span>
+            </div>
+        </div>
+
+        <div class="px-4 py-2 bg-putty-beige rounded-md overflow-auto">
+            <%= photo.caption %>
+        </div>
+    </div>
+
+    <div class="h-[450px] w-[450px] mb-9">
+        <img class="w-full h-full rounded-md" src="/photos/<%= photo.image_url %>" id="post-photo" data-id="<%= photo.photo_id %>">
+    </div>
+
+    <div class="max-h-[450px] w-[400px] px-4 py-2 bg-putty-beige rounded-md felx flex-col overflow-auto" id="comment-section">
+        <div class="flex flex-col mb-2" id="comment-form">
+            <textarea class="h-[100px] px-4 py-2" id="comment-text" placeholder="Write A Comment..."></textarea>
+            <button class="bg-warm-grey py-2 px-4 hover:bg-greyed-lavender duration-150" type="submit" id="comment-btn">send</button>
+        </div>
+
+        <div class="text-center text-2xl mb-3">
+            Comments
+        </div>
+
+        <% photo.comments.forEach(comment => { %>
+            <div class="px-4 py-2 bg-warm-grey rounded-md my-2">
+                <div class="flex flex-row">
+                    <div class="w-10">
+                        <img class="w-full" src="/icons/account.png">
+                    </div>
+        
+                    <div class="ml-2 mr-1 font-bold mt-2" id="username">
+                        <%= comment.username %>
+                    </div>
+                </div>
+
+                <div id="comment-text">
+                    <%= comment.comment_text %>
+                </div>
+            </div>
+        <% }); %>
+
+        <template id="comment-template">
+            <div class="px-4 py-2 bg-warm-grey rounded-md my-2">
+                <div class="flex flex-row">
+                    <div class="w-10">
+                        <img class="w-full" src="/icons/account.png">
+                    </div>
+        
+                    <div class="ml-2 mr-1 font-bold mt-2" id="username">
+                        amiroodi
+                    </div>
+                </div>
+
+                <div id="comment-text">
+                    Lorem ipsum, dolor siniet doloribus. Disam repellat neque a vitae provident?
+                </div>
+            </div>
+        </template>
     </div>
 </div>
 
 
 
 <script src="/js/jquery.js"></script>
+
 <script>
     const likeBtn = $('.likeBtn');
-    const photoId = $('img').attr('data-id');
+    const photoId = $('#post-photo').attr('data-id');
 
     likeBtn.click(() => {
         if(likeBtn.attr('src') == '/icons/heart_empty.png') {
             likeBtn.attr('src', '/icons/heart_filled.png');
 
-            $.ajax('photo/like', {
+            $.ajax('/photo/like', {
                 type: 'post',
                 data: {photoId},
                 success: (data) => {
@@ -44,7 +102,7 @@
         } else {
             likeBtn.attr('src', '/icons/heart_empty.png');
 
-            $.ajax('photo/dislike', {
+            $.ajax('/photo/dislike', {
                 type: 'post',
                 data: {photoId},
                 success: (data) => {
@@ -56,4 +114,30 @@
             });
         };
     });
+
+    const commentBtn = $('#comment-form #comment-btn');
+    const commentText = $('#comment-form #comment-text');
+
+    console.log(commentText.val());
+
+    commentBtn.click(() => {
+        $.ajax('/comment/send', {
+            method: 'post',
+            data: {text: commentText.val(), photoId},
+            success: (data) => {
+                buildCommentTemplate(data);
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+    });
+
+    const buildCommentTemplate = (data) => {
+        const commentTemp = $('#comment-template')[0].content.cloneNode(true);
+        commentTemp.querySelector('#username').textContent = data.username;
+        commentTemp.querySelector('#comment-text').textContent = data.comment_text;
+        $('#comment-section').append(commentTemp);
+    };
+
 </script>

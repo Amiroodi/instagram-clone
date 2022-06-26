@@ -1,7 +1,7 @@
 const UserModel = require('../models/UserModel');
 
 class LoginController {
-    static LoginUser = (req, res) => {
+    static loginUser = (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
 
@@ -14,9 +14,9 @@ class LoginController {
                 } else {
                     // session is a pointer to req.session
                     let session = req.session;
-                    session.userId = result.id;
+                    session.userId = result[0].id;
                     res.redirect(`home`);
-                }
+                };
             });
         } else {
             res.send('username or password field must not be empty!');

@@ -12,6 +12,11 @@ class UserSinglePhotoController {
                     return res.send(err);
                 };
 
+                // checking if the user is entering his/her own page
+                if(result.user_id == userId) {
+                    result.username = 'You';
+                };
+
                 res.render('index', {page: 'user_single_photo', title: 'photo', photo: result});
             });
         } else {

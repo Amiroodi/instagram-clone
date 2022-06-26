@@ -11,9 +11,9 @@ class TagModel {
             tag = tag.substring(1); 
 
             if(tag != '') {
-                const sql = `select id, tag_name from tags where tag_name like '%${tag}%'`;
+                const sql = `select id, tag_name from tags where tag_name like ?`;
 
-                con.query(sql, (err, result) => {
+                con.execute(sql, [`%${tag}%`], (err, result) => {
                     if(err) {
                         return callback(err, undefined);
                     };

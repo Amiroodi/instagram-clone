@@ -14,7 +14,7 @@ class UserLikeController {
                 res.send('image was liked.');
             });
         } else {
-            res.send('please log into your account.');
+            res.redirect('/login');
         }
     };
 
@@ -31,7 +31,7 @@ class UserLikeController {
                 res.send('image was disliked.');
             });
         } else {
-            res.send('please log into your account.');
+            res.redirect('/login');
         }
     };
 }

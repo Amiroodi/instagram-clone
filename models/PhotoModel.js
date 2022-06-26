@@ -10,23 +10,23 @@ class PhotoModel {
 
             const img_url = `${userId}_${photoExtension}.jpg`;
 
-            let sql = `insert into photos(user_id, image_url, caption) values(${userId}, '${img_url}', '${caption}')`;
+            const sql = `insert into photos(user_id, image_url, caption) values(?, ?, ?)`;
 
-            con.query(sql, (err, photos_result) => {
+            con.execute(sql, [userId, img_url, caption] , (err, photos_result) => {
                 if(err) {
                     return callback(err, undefined);
                 };
 
-                sql = `insert ignore into tags(tag_name) values('${tag}')`;
+                const sql = `insert ignore into tags(tag_name) values(?)`;
 
-                con.query(sql, (err, tags_result) => {
+                con.execute(sql, [tag], (err, tags_result) => {
                     if(err) {
                         return callback(err, undefined);
                     };
 
-                    sql = `insert into photo_tag(photo_id, tag_id) values(${photos_result.insertId}, ${tags_result.insertId})`;
+                    const sql = `insert into photo_tag(photo_id, tag_id) values(?, ?)`;
 
-                    con.query(sql, (err, result) => {
+                    con.execute(sql, [photos_result.insertId, tags_result.insertId], (err, result) => {
                         if(err) {
                             return callback(err, undefined);
                         };
@@ -44,14 +44,13 @@ class PhotoModel {
                 return callback(err, undefined);
             };
 
-            const sql = `select * from photos where user_id = ${userId}`;
+            const sql = `select * from photos where user_id = ?`;
 
-            con.query(sql, (err, result) => {
+            con.execute(sql, [userId],(err, result) => {
                 if(err) {
                     return callback(err, undefined);
                 };
 
-                console.log(result);
                 callback(undefined, result);
             });
         });
@@ -63,18 +62,18 @@ class PhotoModel {
                 return callback(err, undefined);
             };
 
-            const sql = `select t.tag_name, p.id, p.image_url from photos as p join photo_tag as pt on p.id = pt.photo_id join tags as t on pt.tag_id = t.id where p.id = ${photoId}`;
+            const sql = `select u.username, u.id as user_id, t.tag_name, p.id as photo_id, p.image_url, p.caption from photos as p join users as u on u.id = p.user_id join photo_tag as pt on p.id = pt.photo_id join tags as t on pt.tag_id = t.id where p.id = ?`;
 
-            con.query(sql, (err, result) => {
+            con.execute(sql, [photoId] ,(err, result) => {
                 if(err) {
                     return callback(err, undefined);
                 };
 
                 result = result[0];
 
-                const sql = `select * from likes where user_id = ${userId} and photo_id = ${photoId}`;
+                const sql = `select * from likes where user_id = ? and photo_id = ?`;
 
-                con.query(sql, (err, result_like) => {
+                con.execute(sql, [userId, photoId], (err, result_like) => {
                     if(err) {
                         return callback(err, undefined);
                     };
@@ -87,7 +86,17 @@ class PhotoModel {
 
                     result.userLikedPhotoBefore = result_like;
 
-                    callback(undefined, result);
+                    const sql = `select u.username, c.comment_text from comments as c join users as u on c.user_id = u.id where c.photo_id = ?`;
+
+                    con.execute(sql, [photoId], (err, result_comments) => {
+                        if(err) {
+                            return callback(err, undefined);
+                        };
+
+                        result.comments = result_comments;
+                        
+                        callback(undefined, result);
+                    });
                 });
             });
         });
@@ -99,9 +108,9 @@ class PhotoModel {
                 return callback(err, undefined);
             };
 
-            const sql = `select p.id, p.image_url from tags as t join photo_tag as pt on t.id = pt.tag_id join photos as p on pt.photo_id = p.id where t.id = ${tagId}`;
+            const sql = `select p.id, p.image_url from tags as t join photo_tag as pt on t.id = pt.tag_id join photos as p on pt.photo_id = p.id where t.id = ?`;
 
-            con.query(sql, (err, result) => {
+            con.execute(sql, [tagId], (err, result) => {
                 if(err) {
                     return callback(err, undefined);
                 };

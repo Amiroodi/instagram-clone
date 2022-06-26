@@ -37,7 +37,7 @@ class UserSearchController {
                 return res.send(err);
             };
 
-            res.render('index', {page: 'user_home', headPara: `photos with tag #${req.query.tag_name}` , title: `found photos`, result});
+            res.render('index', {page: 'user_home', headPara: `Photos With Tag #${req.query.tag_name}` , title: `found photos`, result});
         });
     };
 
@@ -49,7 +49,7 @@ class UserSearchController {
                 return res.send(err);
             };
 
-            res.render('index', {page: 'user_home', title: 'user profile', headPara: `${req.query.username}'s page`, result});
+            res.render('index', {page: 'user_home', title: 'user profile', headPara: `${req.query.username}'s Page`, result});
         });
     };
 }
