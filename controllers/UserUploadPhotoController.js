@@ -1,6 +1,7 @@
 const PhotoModel = require('../models/PhotoModel');
 const path = require('path');
 const multer = require('multer');
+const fs = require('fs');
 
 // cb in some of these functions is a filter: null is passed when there is no error, and true is passed when the item is qualified 
 
@@ -45,6 +46,12 @@ class UserUploadPhotoController {
             // photoExtention is used for saving the photo in the server and database with the same time extensions.
             const photoExtension = Date.now();
             req.session.photoExtension = photoExtension;
+
+            var dir = '/public/photos';  
+
+            if (!fs.existsSync(dir)){
+                fs.mkdirSync(dir);
+            }
 
             upload(req, res, (err) => {
                 if(err) {
