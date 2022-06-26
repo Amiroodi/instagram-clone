@@ -47,10 +47,10 @@ class UserUploadPhotoController {
             const photoExtension = Date.now();
             req.session.photoExtension = photoExtension;
 
-            var dir = '/public/photos';  
-
+            const dir = '/public/photos';
+            
             if (!fs.existsSync(dir)){
-                fs.mkdirSync(dir);
+                fs.mkdirSync(dir, { recursive: true });
             }
 
             upload(req, res, (err) => {
